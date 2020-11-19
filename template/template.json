@@ -1,0 +1,255 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverfarms_ASP_trainingrg_92b1_name": {
+            "defaultValue": "ASP-trainingrg-92b1",
+            "type": "String"
+        },
+        "sites_origintechnologies_training_name": {
+            "defaultValue": "origintechnologies-training",
+            "type": "String"
+        },
+        "registries_origintechnologiestraining_name": {
+            "defaultValue": "origintechnologiestraining",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ContainerRegistry/registries",
+            "apiVersion": "2019-12-01-preview",
+            "name": "[parameters('registries_origintechnologiestraining_name')]",
+            "location": "westus",
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "properties": {
+                "adminUserEnabled": true,
+                "policies": {
+                    "quarantinePolicy": {
+                        "status": "disabled"
+                    },
+                    "trustPolicy": {
+                        "type": "Notary",
+                        "status": "disabled"
+                    },
+                    "retentionPolicy": {
+                        "days": 7,
+                        "status": "disabled"
+                    }
+                },
+                "encryption": {
+                    "status": "disabled"
+                },
+                "dataEndpointEnabled": false,
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('serverfarms_ASP_trainingrg_92b1_name')]",
+            "location": "Central US",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_origintechnologies_training_name')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_trainingrg_92b1_name'))]"
+            ],
+            "kind": "app,linux,container",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_origintechnologies_training_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_origintechnologies_training_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_trainingrg_92b1_name'))]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_origintechnologies_training_name'), '/web')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_origintechnologies_training_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "DOCKER|origintechnologiestraining.azurecr.io/azurecontainerregistry:28",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$origintechnologies-training",
+                "azureStorageAccounts": {},
+                "scmType": "VSTSRM",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_origintechnologies_training_name'), '/11605819664230')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_origintechnologies_training_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "Ivan Porta",
+                "deployer": "VSTS",
+                "message": "{\"type\":\"Deployment\",\"commitId\":\"acc90e3b12d8ea2d9d03690bbaad5cffb597aacd\",\"buildId\":\"24\",\"releaseId\":\"1\",\"buildNumber\":\"20201119.6\",\"releaseName\":\"Release-1\",\"repoProvider\":\"TfsGit\",\"repoName\":\"Training\",\"collectionUrl\":\"https://dev.azure.com/ivanportaweb/\",\"teamProject\":\"15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"buildProjectUrl\":\"https://dev.azure.com/ivanportaweb/15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"repositoryUrl\":\"\",\"branch\":\"master\",\"teamProjectName\":\"Training\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-19T21:01:05.3343352Z",
+                "end_time": "2020-11-19T21:01:05.3343352Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_origintechnologies_training_name'), '/21605823185570')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_origintechnologies_training_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "Ivan Porta",
+                "deployer": "VSTS",
+                "message": "{\"type\":\"Deployment\",\"commitId\":\"b780e6ccffa19908e56d1880e39fcdf0739dc087\",\"buildId\":\"27\",\"releaseId\":\"2\",\"buildNumber\":\"20201119.9\",\"releaseName\":\"Release-2\",\"repoProvider\":\"TfsGit\",\"repoName\":\"Training\",\"collectionUrl\":\"https://dev.azure.com/ivanportaweb/\",\"teamProject\":\"15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"buildProjectUrl\":\"https://dev.azure.com/ivanportaweb/15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"repositoryUrl\":\"\",\"branch\":\"master\",\"teamProjectName\":\"Training\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-19T21:59:45.9752756Z",
+                "end_time": "2020-11-19T21:59:45.9752756Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_origintechnologies_training_name'), '/31605823468200')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_origintechnologies_training_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "Ivan Porta",
+                "deployer": "VSTS",
+                "message": "{\"type\":\"Deployment\",\"commitId\":\"61a563805ef10505df0387455210426096440076\",\"buildId\":\"28\",\"releaseId\":\"3\",\"buildNumber\":\"20201119.10\",\"releaseName\":\"Release-3\",\"repoProvider\":\"TfsGit\",\"repoName\":\"Training\",\"collectionUrl\":\"https://dev.azure.com/ivanportaweb/\",\"teamProject\":\"15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"buildProjectUrl\":\"https://dev.azure.com/ivanportaweb/15a9c6a9-94a6-4c7e-86ba-244436239a3d\",\"repositoryUrl\":\"\",\"branch\":\"master\",\"teamProjectName\":\"Training\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-19T22:04:28.7347155Z",
+                "end_time": "2020-11-19T22:04:28.7347155Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_origintechnologies_training_name'), '/', parameters('sites_origintechnologies_training_name'), '.azurewebsites.net')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_origintechnologies_training_name'))]"
+            ],
+            "properties": {
+                "siteName": "origintechnologies-training",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}
