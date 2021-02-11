@@ -16,7 +16,7 @@ steps:
   
 - task: Docker@2
   inputs:
-    containerRegistry: 'origintechnologiestraining'
+    containerRegistry: 'ACR training connection'
     repository: 'Azure Container Registry'
     command: 'build'
     Dockerfile: '**/Dockerfile'
@@ -24,7 +24,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'origintechnologiestraining'
+    containerRegistry: 'ACR training connection'
     repository: 'Azure Container Registry'
     command: 'push'
   displayName: 'Docker image push'
