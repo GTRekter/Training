@@ -1,0 +1,19 @@
+parameters:
+- name: workingDirectory 
+  type: string 
+  default: ''
+
+steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud training connection'
+    organization: 'GTRekter_Org'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'Training_Project'
+    cliProjectName: 'Training'
+    cliSources: '${{ parameters.workingDirectory }}'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'

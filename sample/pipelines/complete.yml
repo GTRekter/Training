@@ -1,0 +1,99 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build_api
+    displayName: Build API
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+    - script: |
+        npm install
+      workingDirectory: '$(Build.Repository.LocalPath)/api'
+      displayName: 'npm install'
+
+  - job: Build_frontend
+    displayName: Build Frontend
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+    - script: |
+        npm install
+        npm run build
+      workingDirectory: '$(Build.Repository.LocalPath)/frontend'
+      displayName: 'npm install and build'
+
+- stage: Test
+  displayName: Test stage
+  jobs:  
+  - job: Test_api
+    displayName: Test API
+    steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud training connection'
+        organization: 'gtrekter'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'GTRekter_Training'
+        cliProjectName: 'Training'
+        cliSources: '$(Build.Repository.LocalPath)/api'
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
+  - job: Test_frontend
+    displayName: Test Frontend
+    steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud training connection'
+        organization: 'gtrekter'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'GTRekter_Training'
+        cliProjectName: 'Training'
+        cliSources: '$(Build.Repository.LocalPath)/frontend'
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
+- stage: Build_dockerimage
+  displayName: Build and push image to ACR stage
+  jobs:  
+  - job: Build_api_dockerimage
+    displayName: Build and push API image
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to ACR
+      inputs:
+        containerRegistry: 'ACR training connection'
+        repository: 'training-api'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/api/dockerfile'
+        tags: '$(Build.BuildId)'
+  - job: Build_frontend_dockerimage
+    displayName: Build and push frontend image
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to ACR
+      inputs:
+        containerRegistry: 'ACR training connection'
+        repository: 'training-frontend'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/frontend/dockerfile'
+        tags: '$(Build.BuildId)'
+
+

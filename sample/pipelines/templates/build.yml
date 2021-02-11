@@ -1,0 +1,22 @@
+parameters:
+- name: workingDirectory 
+  type: string 
+  default: ''
+- name: buildProject
+  type: boolean
+  default: false
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+- script: |
+    npm install
+  workingDirectory: '${{ parameters.workingDirectory }}'
+  displayName: 'npm install'
+- script: |
+    npm install
+  workingDirectory: '${{ parameters.workingDirectory }}'
+  condition: ${{ parameters.buildProject }}
+  displayName: 'npm build'

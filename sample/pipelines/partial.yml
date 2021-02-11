@@ -1,0 +1,60 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build_api
+    displayName: Build API
+    steps:
+      - template: ./templates/build.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/api'
+
+  - job: Build_frontend
+    displayName: Build Frontend
+    steps:
+      - template: ./templates/build.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/frontend'
+          buildProject: true
+
+- stage: Test
+  displayName: Test stage
+  jobs:  
+  - job: Test_api
+    displayName: Test API
+    steps:
+      - template: ./templates/sonarcloud.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/api'
+
+  - job: Test_frontend
+    displayName: Test Frontend
+    steps:
+      - template: ./templates/sonarcloud.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/frontend'
+
+- stage: Build_dockerimage
+  displayName: Build and push image to ACR stage
+  jobs:  
+  - job: Build_api_dockerimage
+    displayName: Build and push API image
+    steps:
+      - template: ./templates/docker.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/api/dockerfile'
+
+  - job: Build_frontend_dockerimage
+    displayName: Build and push frontend image
+    steps:
+      - template: ./templates/docker.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/frontend/dockerfile'
+
+
