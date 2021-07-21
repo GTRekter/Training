@@ -12,7 +12,7 @@ using Training.API.Controllers;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Training.Test
+namespace Training.MSTest
 {
     [TestClass]
     public class ProductControllerTests

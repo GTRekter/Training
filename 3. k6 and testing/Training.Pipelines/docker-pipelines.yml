@@ -5,95 +5,52 @@ trigger:
  paths:
     exclude:
       - Training.Pipelines\*
-pool: 
-  vmImage: 'ubuntu-latest'
+
 variables:
-  solution: '**\*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+- ${{ if eq(variables['build.SourceBranchName'], 'master') }}:
+  - group: estruyf-master
+- ${{ if ne(variables['build.SourceBranchName'], 'master') }}:
+  - group: estruyf-dev
+- name: npm_config_cache
+  value: $(Pipeline.Workspace)/.npm
+- name: CYPRESS_CACHE_FOLDER # Overrides the default cache location
+  value: $(Pipeline.Workspace)/.cache/Cypress
+
 stages:
-- stage: BuildAndTesting
-  displayName: Build and test
+- stage: e2e_testing_stage_chrome
+  displayName: 'Chrome E2E Testing'
   jobs:
-  - job: DotnetProject
-    displayName: .NET API Project
-    pool: 
-      vmImage: 'windows-latest'
+  - job: e2e_testing_job_chrome
+    displayName: 'Run E2E in Chrome'
+    pool:
+      vmImage: macos-latest
     steps:
-    - checkout: self
-    - task: DotNetCoreCLI@2
-      displayName: 'Restore packages'
-      inputs:
-        command: 'restore'
-        projects: |
-          **\Training.API.csproj
-          **\Training.Models.csproj
-          **\Training.Test.csproj
-        feedsToUse: 'select'
-    - task: SonarCloudPrepare@1
-      displayName: 'Configure SonarCloud'
-      inputs:
-        SonarCloud: 'SonarCloud'
-        organization: 'gtrekter'
-        scannerMode: 'MSBuild'
-        projectKey: 'GTRekter_Training'
-        projectName: 'Training'
-    - task: DotNetCoreCLI@2
-      displayName: 'Build projects'
-      inputs:
-        command: 'build'
-        projects: |
-          **\Training.API.csproj
-          **\Training.Models.csproj
-          **\Training.Test.csproj
-    - task: SonarCloudAnalyze@1
-      displayName: 'SonarCloud analysis'
-    - task: SonarCloudPublish@1
-      displayName: 'Publishing SonarCloud results'
-      inputs:
-        pollingTimeoutSec: '300'   
-    - task: VSTest@2
-      displayName: 'Unit test with MSTest' 
-      inputs:
-        testSelector: 'testAssemblies'
-        testAssemblyVer2: |
-          **\Training.Test.dll
-          !**\*TestAdapter.dll
-          !**\obj\**
-          !**\bin\**\ref\**
-        diagnosticsEnabled: True
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-        testRunTitle: '.NET API unit tests' 
-    - task: PublishTestResults@2
-      displayName: 'Publishing MSTest results'
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '**\TEST-*.xml'
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish projects'
-      inputs:
-        command: 'publish'
-        publishWebProjects: true
-        arguments: '--output $(Build.ArtifactStagingDirectory)\output'
-        zipAfterPublish: false
-        modifyOutputPath: false
-    - task: CopyFiles@2
-      displayName: Copy dockerfile to staging directory
-      inputs:
-        SourceFolder: '$(Build.Repository.LocalPath)'
-        Contents: '**\dockerfile'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    - task: CopyFiles@2
-      displayName: 'Copy loadtests to staging folder'
-      inputs:
-        SourceFolder: Training.LoadTest
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/loadtests' 
-    - task: PublishBuildArtifacts@1
-      displayName: Publish build artifact
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'training_api'
-        publishLocation: 'Container'
+      - template: devops/e2e.testing.yml
+        parameters:
+          browserType: chrome
+
+- stage: e2e_testing_stage_firefox
+  displayName: 'Firefox E2E Testing'
+  dependsOn: []
+  jobs:
+  - job: e2e_testing_job_firefox
+    displayName: 'Run E2E in Firefox'
+    pool:
+      vmImage: macos-latest
+    steps:
+      - template: devops/e2e.testing.yml
+        parameters:
+          browserType: firefox
+          
+- stage: e2e_testing_stage_edge
+  displayName: 'Edge E2E Testing'
+  dependsOn: []
+  jobs:  
+  - job: e2e_testing_job_edge
+    displayName: 'Run E2E in Edge'
+    pool:
+      vmImage: macos-latest
+    steps:
+      - template: devops/e2e.testing.yml
+        parameters:
+          browserType: edge
