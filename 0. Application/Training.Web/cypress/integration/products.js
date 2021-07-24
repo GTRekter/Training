@@ -1,10 +1,14 @@
 describe('Browsing Homepage', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000')
+        cy.visit('http://localhost:3000/products')
     })
-
-    it('Browse page',() => {
-        cy.visit('http://localhost:3000')
+    it('Adds a new products', () => {
+        const input = "Learn about cypress"
+        cy.get('.form-control')
+          .type(input)
+          .type('{enter}')
+          .get('li')
+          .should('have.length', 3)
     })
     // it('displays two todo items by default', () => {
     //     cy.get('.todo-list li').should('have.length', 2)

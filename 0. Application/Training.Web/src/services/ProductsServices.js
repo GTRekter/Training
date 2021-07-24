@@ -11,7 +11,7 @@ class ProductsService {
         })
         .then(res => res.json());        
     }
-    addProduct(id, name, price){
+    addProduct(name, price){
         return fetch(process.env.REACT_APP_API_BASEURL + "/Product/AddProduct",{ 
             method: 'post',
             mode: 'cors',
@@ -21,7 +21,6 @@ class ProductsService {
                 'Access-Control-Allow-Origin':'*'
             },
             body: JSON.stringify({
-                id: parseInt(id),
                 name: name,
                 price: price
             })

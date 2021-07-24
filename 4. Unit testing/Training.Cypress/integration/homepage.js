@@ -1,9 +1,21 @@
 describe('Browsing Homepage', () => {
-    // beforeEach(() => {
-    //     cy.visit('http://localhost:3000')
-    // })
+    before(() => {
+        // runs once before all tests in the block
+    })
 
-    it('Browse page',() => {
+    beforeEach(() => {
+        // runs before each test in the block
+        cy.visit('http://localhost:3000')
+    })
+
+    afterEach(() => {
+        // runs after each test in the block
+    })
+
+    after(() => {
+        // runs once after all tests in the block
+    })
+    it('Browse page', () => {
         cy.visit('http://localhost:3000')
     })
     // it('displays two todo items by default', () => {

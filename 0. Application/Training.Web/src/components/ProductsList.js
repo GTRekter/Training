@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Table, Row, Col } from 'reactstrap';
 import ProductsService from '../services/ProductsServices'
 
-export default class ProductsList extends React.Component {
+export default class ProductsList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,17 +10,18 @@ export default class ProductsList extends React.Component {
         }
     }
     componentDidMount() {
-        ProductsService.getAllProducts().then((data) => {
-            this.setState({ products: data })
-            console.log(this.state.data)
-        })
+        ProductsService.getAllProducts()
+            .then((data) => {
+                this.setState({ products: data })
+                console.log(this.state.data)
+            })
             .catch(function (ex) {
                 console.log('Response parsing failed. Error: ', ex);
             });;
     }
     render() {
         return (
-            <Row>
+            <Row className="mt-5">
                 <Col xs="12">
                     <Table dark>
                         <thead>
