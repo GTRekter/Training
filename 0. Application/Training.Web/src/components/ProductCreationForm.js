@@ -7,7 +7,7 @@ export default class ProductsCreationForm extends Component {
         super(props)
         this.state = {
             name: '',
-            price: 0
+            price: null,
         }
         this.handleChange = this.handleChange.bind(this);
     }
