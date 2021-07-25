@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavItem, NavLink, NavbarToggler, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Collapse, Navbar, NavItem, NavbarToggler, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class NavigationBar extends Component {
   constructor(props) {
@@ -21,18 +22,18 @@ export default class NavigationBar extends Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/">Home</NavLink>
+              <Link className="nav-link" to='/'>Home</Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Products
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem>
-                  <NavLink href="/products">List</NavLink>
+                <DropdownItem>    
+                  <Link className="nav-link" to='/products'>List</Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink href="/addproduct">Add</NavLink>
+                  <Link className="nav-link" to='/addproduct'>Add</Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

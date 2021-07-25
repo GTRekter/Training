@@ -23,8 +23,8 @@ namespace Training.API.Controllers
         }
 
         [HttpPost]
-        [Route("RemoveProduct")]
-        public void RemoveProduct(int id)
+        [Route("DeleteProductById")]
+        public void DeleteProductById(int id)
         {
             ProductManager.RemoveProductById(_context, id);
         }

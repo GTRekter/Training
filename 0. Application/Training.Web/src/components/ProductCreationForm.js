@@ -24,33 +24,30 @@ export default class ProductsCreationForm extends Component {
         ProductsService.addProduct(this.state.name, this.state.price)
             .then(() => {
                 console.log('Product succesfully created');
+                this.props.history.push('/products');
             })
             .catch(function (ex) {
                 console.log('Response parsing failed. Error: ', ex);
-            });;
+            });
     }
     render() {
         return (
-            <Row className="mt-5">
-                <Col xs="12">
-                    <Form className="form" onSubmit={(e) => this.submitForm(e)}>
-                        <FormGroup>
-                            <Label for="exampleEmail">Name</Label>
-                            <Input type="text" name="name" placeholder="Enter your product's name"
-                                value={this.state.name}
-                                onChange={(e) => { this.handleChange(e); }} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="examplePassword">Price</Label>
-                            <Input type="number" name="price" placeholder="Enter your product's price"
-                                value={this.state.price}
-                                onChange={(e) => { this.handleChange(e); }} />
-                        </FormGroup>
-                        <Button color="primary" type="submit">Confirm</Button>
-                        <Button color="secondary" type="reset">Clear</Button>
-                    </Form>
-                </Col>
-            </Row>
+            <Form className="form" onSubmit={(e) => this.submitForm(e)}>
+                <FormGroup>
+                    <Label className="text-white" for="exampleEmail">Name</Label>
+                    <Input type="text" name="name" placeholder="Enter your product's name"
+                        value={this.state.name}
+                        onChange={(e) => { this.handleChange(e); }} />
+                </FormGroup>
+                <FormGroup>
+                    <Label className="text-white" for="examplePassword">Price</Label>
+                    <Input type="number" name="price" placeholder="Enter your product's price"
+                        value={this.state.price}
+                        onChange={(e) => { this.handleChange(e); }} />
+                </FormGroup>
+                <Button className="mr-2" color="primary" type="submit">Confirm</Button>
+                <Button color="secondary" type="reset">Clear</Button>
+            </Form>
         )
     }
 }

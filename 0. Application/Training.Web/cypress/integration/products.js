@@ -1,18 +1,24 @@
-describe('Browsing Homepage', () => {
+describe('Testing Product CRUD operations', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000/products')
     })
-    it('Adds a new products', () => {
-        const input = "Learn about cypress"
-        cy.get('.form-control')
-          .type(input)
-          .type('{enter}')
-          .get('li')
-          .should('have.length', 3)
+    it('Adds a new product', () => {
+        // Browse to add product
+        cy.get('nav a').eq(1).click()
+        cy.get('.dropdown-menu.show a').eq(1).click()
+        // Add product
+        cy.get('input[name="name"]').type('Test 01')
+        cy.get('input[name="price"]').type('10')
+        cy.get('button[type=submit]').click()
+        // Check that there are at least one element
+        cy.get('nav a').eq(1).click()
+        cy.get('.dropdown-menu.show a').eq(0).click()
+        cy.get('table[data-element-id="products"] tbody tr').should('have.length', 1)
     })
-    // it('displays two todo items by default', () => {
-    //     cy.get('.todo-list li').should('have.length', 2)
-    //     cy.get('.todo-list li').first().should('have.text', 'Pay electric bill')
-    //     cy.get('.todo-list li').last().should('have.text', 'Walk the dog')
-    // })
+    it('Delete a product', () => {
+        cy.get('nav a').eq(1).click()
+        cy.get('.dropdown-menu.show a').eq(0).click()
+        cy.get('table[data-element-id="products"] tbody tr button').eq(0).contains('Delete').click()
+        cy.get('table[data-element-id="products"] tbody tr').should('have.length', 0)
+    })
 })

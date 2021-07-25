@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import globalazurelogo from '../images/globalazure2021.png';
-import cloudgenlogo from '../images/cloudgen.png';
-import { Row, Col } from 'reactstrap';
+// import globalazurelogo from '../images/globalazure2021.png';
+// import cloudgenlogo from '../images/cloudgen.png';
 
 export default class Home extends Component {
     render() {
@@ -19,14 +18,10 @@ export default class Home extends Component {
                         </div>
                     </Col>
                 </Row> */}
-                <Row className="mt-5">
-                    <Col>
-                        <div className="text-center text-white">
-                            <h1>Welcome to this Demo</h1>
-                            <p className="lead">Cypress</p>
-                        </div>
-                    </Col>
-                </Row>
+                <div className="text-center text-white">
+                    <h1>Welcome to this Demo</h1>
+                    <p className="lead">Cypress</p>
+                </div>
             </div>
         )
     }

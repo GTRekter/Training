@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import NavigationBar from './NavigationBar';
 
 export class Layout extends Component {
@@ -8,7 +8,11 @@ export class Layout extends Component {
             <div>
                 <NavigationBar />
                 <Container>
-                    {this.props.children}
+                    <Row className="mt-5">
+                        <Col xs="12">
+                            {this.props.children}
+                        </Col>
+                    </Row>
                 </Container>
             </div>
         );

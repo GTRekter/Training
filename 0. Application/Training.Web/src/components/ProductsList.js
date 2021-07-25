@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Row, Col } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import ProductsService from '../services/ProductsServices'
 
 export default class ProductsList extends Component {
@@ -8,6 +8,7 @@ export default class ProductsList extends Component {
         this.state = {
             products: []
         }
+        this.onClickDelete = this.onClickDelete.bind(this);
     }
     componentDidMount() {
         ProductsService.getAllProducts()
@@ -19,32 +20,40 @@ export default class ProductsList extends Component {
                 console.log('Response parsing failed. Error: ', ex);
             });;
     }
+    onClickDelete = (id) => {
+        ProductsService.deleteProduct(id)
+            .then(() => {
+                console.log('Product succesfully deleted');
+                const products = this.state.products.filter(prod => prod.id !== id)
+                this.setState({products})
+            })
+            .catch(function (ex) {
+                console.log('Response parsing failed. Error: ', ex);
+            });
+    };
     render() {
         return (
-            <Row className="mt-5">
-                <Col xs="12">
-                    <Table dark>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Price</th>
+            <Table dark data-element-id="products">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        this.state.products.map(product =>
+                            <tr key={product.id}>
+                                <td>{product.id}</td>
+                                <td>{product.name}</td>
+                                <td><Button onClick={(e) => { this.onClickDelete(product.id); }}>Delete</Button></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.products.map(product =>
-                                    <tr key={product.id}>
-                                        <td>{product.id}</td>
-                                        <td>{product.name}</td>
-                                        <td>{product.price}</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
+                        )
+                    }
+                </tbody>
+            </Table>
         )
     }
 }
