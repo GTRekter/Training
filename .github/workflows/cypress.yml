@@ -27,6 +27,8 @@ jobs:
     - name: Cypress run on chrome
       uses: cypress-io/github-action@v2
       with:
+          install: false
+          wait-on: 'https://localhost:3000'
           browser: chrome
           project: './0_Application/Training.Web/'
       
