@@ -12,6 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
+    
+    - name: Set up Node.js version
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: yarn install, build, and test
+      run: |
+        yarn install
+        yarn build 
+      working-directory: ${{ env.WORKING_DIRECTORY }}
 
     - name: Cypress run on chrome
       uses: cypress-io/github-action@v2
