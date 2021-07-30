@@ -2,7 +2,7 @@ name: Build and deploy Web
 on:
   push:
     paths:
-      - 0_Application/Training.Web/**
+      - ./0_Application/Training.Web/**
     branches:
       - master
 env:
