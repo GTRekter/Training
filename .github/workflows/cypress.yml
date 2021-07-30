@@ -1,4 +1,4 @@
-name: Build and deploy Web
+name: Cypress testing
 on:
   push:
     paths:
