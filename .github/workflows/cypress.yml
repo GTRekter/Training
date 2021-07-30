@@ -29,6 +29,9 @@ jobs:
       with:
           # Specify the browser name or path with browser parameter
           browser: chrome
+          # Specify the project to run with project parameter
+          project: ${{ env.WORKING_DIRECTORY }}
+      
     - name: Cypress run on firefox
       uses: cypress-io/github-action@v2
       with:
