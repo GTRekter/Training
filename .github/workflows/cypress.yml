@@ -27,16 +27,16 @@ jobs:
     - name: Cypress run on chrome
       uses: cypress-io/github-action@v2
       with:
-          # Specify the browser name or path with browser parameter
           browser: chrome
-          # Specify the project to run with project parameter
-          project: ${{ env.WORKING_DIRECTORY }}
+          project: './0_Application/Training.Web/'
       
     - name: Cypress run on firefox
       uses: cypress-io/github-action@v2
       with:
           # Specify the browser name or path with browser parameter
           browser: firefox
+          # Specify the project to run with project parameter
+          project: ${{ env.WORKING_DIRECTORY }}
     - name: Cypress run on edge
       uses: cypress-io/github-action@v2
       with:
