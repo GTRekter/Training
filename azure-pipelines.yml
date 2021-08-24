@@ -1,8 +1,25 @@
 trigger:
- branches:
-    include:
-      - main
- paths:
-    include:
-    - Training/0_Application/Training.Web/*
+   branches:
+      include:
+         - main
+   paths:
+      include:
+         - Training/0_Application/Training.Web/*
 
+steps:
+   - task: NodeTool@0
+     displayName: 'Use Node 12.x'
+     inputs:
+       versionSpec: 12.x
+
+   - task: CmdLine@2
+     inputs:
+       script: 'yarn cypress run'
+
+   - task: PublishTestResults@2
+     inputs:
+       testResultsFormat: 'JUnit'
+       testResultsFiles: '*.xml'
+       searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports/junit'
+       mergeTestResults: true
+       testRunTitle: 'Publish Test Results'
