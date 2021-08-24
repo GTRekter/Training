@@ -22,7 +22,7 @@ steps:
        script: |
          yarn install
          yarn cypress run
-       workingDirectory: './Training/0_Application/Training.Web/'
+       workingDirectory: './0_Application/Training.Web/'
 
    - task: PublishTestResults@2
      displayName: 'Publish test results'
