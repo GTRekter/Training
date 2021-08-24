@@ -1,2 +1,2 @@
 # Training
-Training template
+Training project
