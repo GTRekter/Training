@@ -13,16 +13,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
+        
     - name: yarn install, build, and test
       run: |
         yarn install
         yarn build 
       working-directory: ${{ env.WORKING_DIRECTORY }}
+
+    - name: TEST
+      run: |
+        ls -a
 
     - name: Cypress run on chrome
       uses: cypress-io/github-action@v2
@@ -30,7 +34,7 @@ jobs:
       #    install: false
       #    wait-on: 'https://localhost:3000'
       #    browser: chrome
-          project: './0_Application/Training.Web/'
+          project: ${{ env.WORKING_DIRECTORY }}
       
     - name: Cypress run on firefox
       uses: cypress-io/github-action@v2
@@ -39,6 +43,7 @@ jobs:
           browser: firefox
           # Specify the project to run with project parameter
           project: ${{ env.WORKING_DIRECTORY }}
+          
     - name: Cypress run on edge
       uses: cypress-io/github-action@v2
       with:
