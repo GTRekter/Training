@@ -8,26 +8,6 @@ on:
 env:
   WORKING_DIRECTORY: './0_Application/Training.Web/'
 jobs:
-
-
-  cypress-run:
-    runs-on: ubuntu-latest
-    # Docker image with Cypress pre-installed
-    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:3.8.3
-    steps:
-      - uses: actions/checkout@v1         
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-      - name: yarn install, build, and test
-        run: |
-          yarn install
-          yarn build 
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-      - run: cypress run
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -44,29 +24,20 @@ jobs:
         yarn build 
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
-    - name: TEST
-      run: |
-        ls -a
-
     - name: Cypress run on chrome
       uses: cypress-io/github-action@v2
       with:
-      #    install: false
-      #    wait-on: 'https://localhost:3000'
-      #    browser: chrome
+          browser: chrome
           working-directory: ${{ env.WORKING_DIRECTORY }}
-      #    project: ${{ env.WORKING_DIRECTORY }}
       
     - name: Cypress run on firefox
       uses: cypress-io/github-action@v2
       with:
-          # Specify the browser name or path with browser parameter
           browser: firefox
-          # Specify the project to run with project parameter
-          project: ${{ env.WORKING_DIRECTORY }}
+          working-directory: ${{ env.WORKING_DIRECTORY }}
           
     - name: Cypress run on edge
       uses: cypress-io/github-action@v2
       with:
-          # Specify the browser name or path with browser parameter
           browser: edge
+          working-directory: ${{ env.WORKING_DIRECTORY }}
