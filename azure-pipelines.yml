@@ -14,7 +14,9 @@ steps:
 
    - task: CmdLine@2
      inputs:
-       script: 'yarn cypress run'
+       script: |
+         yarn install
+         yarn cypress run
 
    - task: PublishTestResults@2
      inputs:
