@@ -33,8 +33,9 @@ describe('Testing Product CRUD operations', () => {
     })
     it('Delete a product', () => {
         cy.get('table[data-element-id="products"] tbody tr button').eq(0).contains('Delete').click()
-        cy.intercept('POST', '**/Product/DeleteProductById?id=0', request => {
-            expect(request).property('body').to.have.property('id', '0')
+        cy.intercept('POST', '**/Product/DeleteProductById', request => {
+            console.log(request)
+            expect(request).property('body').to.have.property('id', 0)
             request.reply({ statusCode: 200 })
         })
         cy.get('table[data-element-id="products"] tbody tr').should('have.length', 2)

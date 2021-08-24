@@ -21,6 +21,7 @@ export default class ProductsList extends Component {
             });;
     }
     onClickDelete = (id) => {
+        console.log(id);
         ProductsService.deleteProduct(id)
             .then(() => {
                 console.log('Product succesfully deleted');
