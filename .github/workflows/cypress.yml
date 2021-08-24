@@ -28,16 +28,22 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
           browser: chrome
+          start: yarn start
+          wait-on: 'http://localhost:3000'
           working-directory: ${{ env.WORKING_DIRECTORY }}
       
     - name: Cypress run on firefox
       uses: cypress-io/github-action@v2
       with:
           browser: firefox
+          start: yarn start
+          wait-on: 'http://localhost:3000'
           working-directory: ${{ env.WORKING_DIRECTORY }}
           
     - name: Cypress run on edge
       uses: cypress-io/github-action@v2
       with:
           browser: edge
+          start: yarn start
+          wait-on: 'http://localhost:3000'
           working-directory: ${{ env.WORKING_DIRECTORY }}
