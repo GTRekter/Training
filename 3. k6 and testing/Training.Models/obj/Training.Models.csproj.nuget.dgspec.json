@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "/workspaces/Training/3. k6 and testing/Training.Models/Training.Models.csproj": {}
+  },
+  "projects": {
+    "/workspaces/Training/3. k6 and testing/Training.Models/Training.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/workspaces/Training/3. k6 and testing/Training.Models/Training.Models.csproj",
+        "projectName": "Training.Models",
+        "projectPath": "/workspaces/Training/3. k6 and testing/Training.Models/Training.Models.csproj",
+        "packagesPath": "/var/nuget",
+        "outputPath": "/workspaces/Training/3. k6 and testing/Training.Models/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/codespace/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/dotnet/5.0.203/sdk/5.0.203/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
