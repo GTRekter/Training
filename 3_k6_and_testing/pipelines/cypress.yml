@@ -20,7 +20,7 @@ steps:
    - task: CmdLine@2
      inputs:
        script: |
-         yarn install
+         yarn install --network-timeout 1000000
          yarn cypress run
        workingDirectory: './0_Application/Training.Web/'
 
