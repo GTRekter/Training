@@ -15,17 +15,13 @@ steps:
      inputs:
        versionSpec: 12.x
 
-   - task: CmdLine@2
-     inputs:
-       script: |
-         ls -a
-
    - script: |
        yarn install --verbose
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Install project dependencies'
   
    - script: |
+       yarn start
        ./node_modules/.bin/cypress run --browser chrome
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Run cypress tests'
