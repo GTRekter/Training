@@ -34,16 +34,8 @@ steps:
        ./node_modules/.bin/cypress run --browser chrome
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Run cypress tests'
-
-  #  - task: CmdLine@2
-  #    inputs:
-  #      script: |
-  #        yarn install --network-timeout 1000000
-  #        yarn cypress run
-  #      workingDirectory: './0_Application/Training.Web/'
-  #    displayName: 'Install project dependencies'
-
-
+     continueOnError: true
+     
    - task: PublishTestResults@2
      displayName: 'Publish test results'
      inputs:
