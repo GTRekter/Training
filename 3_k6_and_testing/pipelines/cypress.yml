@@ -22,11 +22,11 @@ steps:
   
    - script: |
        yarn build
+       yarn start
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Build application'
 
    - script: |
-       yarn run 
        ./node_modules/.bin/cypress run --browser chrome
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Run cypress tests'
