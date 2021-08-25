@@ -26,7 +26,7 @@ steps:
      displayName: 'Build application'
 
    - script: |
-       yarn start
+       (yarn run start&)
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Start application'
 
