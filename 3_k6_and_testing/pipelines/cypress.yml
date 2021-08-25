@@ -5,6 +5,9 @@ trigger:
    paths:
       include:
          - Training/0_Application/Training.Web/*
+variables:
+  - name: projectPath
+    value: './0_Application/Training.Web/' 
 
 steps:
    - task: NodeTool@0
@@ -19,10 +22,12 @@ steps:
 
    - script: |
        yarn install --network-timeout 1000000
+     workingDirectory: ${{variables.projectPath}}
      displayName: 'Install project dependencies'
   
    - script: |
        yarn cypress run
+     workingDirectory: ${{variables.projectPath}}
      displayName: 'Run cypress tests'
 
   #  - task: CmdLine@2
