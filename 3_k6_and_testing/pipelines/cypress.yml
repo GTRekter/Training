@@ -17,12 +17,22 @@ steps:
        script: |
          ls -a
 
-   - task: CmdLine@2
-     inputs:
-       script: |
-         yarn install --network-timeout 1000000
-         yarn cypress run
-       workingDirectory: './0_Application/Training.Web/'
+   - script: |
+       yarn install --network-timeout 1000000
+     displayName: 'Install project dependencies'
+  
+   - script: |
+       yarn cypress run
+     displayName: 'Run cypress tests'
+
+  #  - task: CmdLine@2
+  #    inputs:
+  #      script: |
+  #        yarn install --network-timeout 1000000
+  #        yarn cypress run
+  #      workingDirectory: './0_Application/Training.Web/'
+  #    displayName: 'Install project dependencies'
+
 
    - task: PublishTestResults@2
      displayName: 'Publish test results'
