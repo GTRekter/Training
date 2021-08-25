@@ -22,12 +22,11 @@ steps:
 
    - script: |
        yarn install --verbose
-       npm install cypress@latest --save-dev
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Install project dependencies'
   
    - script: |
-       cypress run --browser chrome
+       ./node_modules/.bin/cypress run --browser chrome
      workingDirectory: ${{variables.projectPath}}
      displayName: 'Run cypress tests'
 
