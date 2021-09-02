@@ -1,0 +1,46 @@
+trigger:
+   branches:
+      include:
+         - main
+   paths:
+      include:
+         - Training/0_Application/Training.Web/*
+variables:
+  - name: projectPath
+    value: './0_Application/Training.Web/' 
+
+steps:
+   - task: NodeTool@0
+     displayName: 'Use Node 12.x'
+     inputs:
+       versionSpec: 12.x
+
+   - script: |
+       yarn install --verbose
+     workingDirectory: ${{variables.projectPath}}
+     displayName: 'Install project dependencies'
+  
+   - script: |
+       yarn build
+     workingDirectory: ${{variables.projectPath}}
+     displayName: 'Build application'
+
+   - script: |
+       (yarn run start&)
+     workingDirectory: ${{variables.projectPath}}
+     displayName: 'Start application'
+
+   - script: |
+       ./node_modules/.bin/cypress run --browser chrome
+     workingDirectory: ${{variables.projectPath}}
+     displayName: 'Run cypress tests'
+     continueOnError: true
+     
+   - task: PublishTestResults@2
+     displayName: 'Publish test results'
+     inputs:
+       testResultsFormat: 'JUnit'
+       testResultsFiles: '*.xml'
+       searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports/junit'
+       mergeTestResults: true
+       testRunTitle: 'Cypress tests'
