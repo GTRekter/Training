@@ -5,6 +5,8 @@ on:
       - 0_Application/Training.Web/**
     branches:
       - main
+      - development
+      - release
 env:
   WORKING_DIRECTORY: './0_Application/Training.Web/'
 jobs:
