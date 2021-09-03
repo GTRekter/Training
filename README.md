@@ -1,11 +1,7 @@
 # Training
-
-| Platform | Status          |
-| ------- | ------------------ |
-| Azure Pipelines | ![Build Status](https://gtrekter.visualstudio.com/Training/_apis/build/status/GTRekter.Training?branchName=refs%2Fpull%2F43%2Fmerge) |
-
-
 Project used to help other people understanding GitHub and it's features.
+
+ ![Build Status](https://gtrekter.visualstudio.com/Training/_apis/build/status/GTRekter.Training?branchName=refs%2Fpull%2F43%2Fmerge)
 
 ## Contributing
 Please feel free to contribute by adding new templates to this project:
