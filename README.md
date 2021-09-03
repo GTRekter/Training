@@ -11,5 +11,5 @@ Please feel free to contribute by adding new templates to this project:
 - Push to the branch (git push origin feature/fooBar)
 - Create a new Pull Request
 
-
+## Code of Conduct
 
