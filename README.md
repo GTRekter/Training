@@ -12,4 +12,3 @@ Please feel free to contribute by adding new templates to this project:
 - Create a new Pull Request
 
 ## Code of Conduct
-- Fear is the path to The Dark Side. Fear leads to anger. Anger leads to hate. Hate leads to suffering.
