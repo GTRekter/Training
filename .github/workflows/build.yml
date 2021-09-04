@@ -1,12 +1,5 @@
 name: Build web application
-on:
-  push:
-    paths:
-      - 0_Application/Training.Web/**
-    branches:
-      - main
-      - development
-      - release
+on: [pull_request]
 env:
   WORKING_DIRECTORY: './0_Application/Training.Web/'
 jobs:
