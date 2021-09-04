@@ -1,12 +1,7 @@
-name: Build web application
+name: PR status checks
 on:
-  push:
-    paths:
-      - 0_Application/Training.Web/**
-    branches:
-      - main
-      - development
-      - release
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
 env:
   WORKING_DIRECTORY: './0_Application/Training.Web/'
 jobs:
