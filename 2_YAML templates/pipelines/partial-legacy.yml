@@ -1,0 +1,38 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+- name: year
+  value: $[format('{0:yyyy}', pipeline.startTime)]
+- name: date
+  value: $[format('{0:yyyy}-{0:MM}-{0:dd}', pipeline.startTime)]
+- name: ProjectName
+  value: MRO
+- name: projectConfiguration
+  value: 'Development'
+- name: projectAssemblyFullPath
+  value: '0_Application\Training.Legacy\'
+- name: buildVersioningBaseName
+  value: $(Build.DefinitionName)_$(Build.SourceBranchName)_$(Build.BuildNumber)_$(AssemblyInfo.AssemblyVersion)
+# steps:
+# - template: ./template.yml
+# parameters:
+# BuildUserPass: $(BuildUserCred)
+# projectConfiguration: Test
+# SolutionName: 'MROSolution.sln'
+
+steps:
+  - template: ./templates/legacy.yml
+    parameters:
+      solutionName: 'Training.sln'
+      projectAssemblyFullPath: $(projectAssemblyFullPath)
+      projectConfiguration: $(projectConfiguration)
+      projectPlatform: 'Any CPU'
+      buildVersioningBaseName: $(buildVersioningBaseName)
+      remoteMachineNames: ''
+      remoteUsername: ''
+      remotePassword: ''
+      remoteTargetPath: 'F:\Pubblicazioni-CD\$(projectConfiguration)\$(ProjectName)_$(projectConfiguration)\$(year)\$(date)\$(buildVersioningBaseName)\'

@@ -1,0 +1,80 @@
+parameters:
+- name: solutionName
+  type: string
+  default: ''
+- name: projectAssemblyFullPath
+  type: string
+  default: ''
+- name: projectConfiguration
+  type: string
+  default: 'Release'
+- name: projectPlatform
+  type: string
+  default: 'Any CPU'
+- name: buildVersioningBaseName
+  type: string
+  default: ''
+- name: remoteMachineNames
+  type: string 
+  default: ''
+- name: remoteUsername
+  type: string 
+  default: ''
+- name: remotePassword
+  type: string 
+  default: ''
+- name: remoteTargetPath
+  type: string 
+  default: ''
+
+steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore packages'
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/${{ parameters.solutionName }}'
+      #feedsToUse: 'config'
+      #nugetConfigPath: '$(Build.Repository.LocalPath)/.nuget/NuGet.Config'
+
+  - task: AssembyInfoReader@3
+    displayName: 'Get assembly information'
+    inputs:
+      searchPattern: '${{ parameters.projectAssemblyFullPath }}\Properties\AssemblyInfo.cs'
+      variablesPrefix: ''
+      
+  - task: VSBuild@1
+    displayName: 'Build solution'
+    inputs:
+      #solution: '**/${{ parameters.solutionName }}'
+      solution: '0_Application\Training.Legacy\Training.Legacy.csproj'
+      msbuildArgs: '/p:DeployOnBuild=true 
+        /p:WebPublishMethod=Package 
+        /p:PackageAsSingleFile=true 
+        /p:SkipInvalidConfigurations=true 
+        /p:PackageLocation="$(Build.ArtifactStagingDirectory)/${{ parameters.buildVersioningBaseName }}.zip" 
+        /p:TransformWebConfigEnabled=true'
+      platform: ${{ parameters.projectPlatform }}
+      configuration: '${{ parameters.projectConfiguration }}'
+
+  - script: echo ${{ parameters.buildVersioningBaseName }}
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/${{ parameters.buildVersioningBaseName }}.zip'
+      ArtifactName: '${{ parameters.buildVersioningBaseName }}'
+
+  - task: WindowsMachineFileCopy@2
+    displayName: 'Copia archivio compresso'        
+    inputs:
+      SourcePath: '$(Build.ArtifactStagingDirectory)/${{ parameters.buildVersioningBaseName }}.zip'
+      MachineNames: ${{ parameters.remoteMachineNames }}
+      AdminUserName: ${{ parameters.remoteUsername }}
+      AdminPassword: '$(RemotePassword)'
+      TargetPath: '${{ parameters.remoteTargetPath }}'
+      CleanTargetBeforeCopy: true
+    env: 
+      RemotePassword: ${{ parameters.remotePassword }}

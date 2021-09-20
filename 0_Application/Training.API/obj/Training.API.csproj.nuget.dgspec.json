@@ -1,0 +1,149 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.API\\Training.API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.API\\Training.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.API\\Training.API.csproj",
+        "projectName": "Training.API",
+        "projectPath": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.API\\Training.API.csproj",
+        "packagesPath": "C:\\Users\\ivanporta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ivanporta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\Training.Models.csproj": {
+                "projectPath": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\Training.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
+            "Microsoft.OpenApi": {
+              "target": "Package",
+              "version": "[1.2.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.7, 5.0.7]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.6.21355.2\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\Training.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\Training.Models.csproj",
+        "projectName": "Training.Models",
+        "projectPath": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\Training.Models.csproj",
+        "packagesPath": "C:\\Users\\ivanporta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ivanporta\\OneDrive - Microsoft\\Training\\0_Application\\Training.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ivanporta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.6.21355.2\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
