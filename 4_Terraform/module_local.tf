@@ -1,9 +1,9 @@
-module "localfile" {
+module "first_file" {
   source  = "./local"
 }
-module "localfile" {
+module "second_file" {
   source  = "./local"
 }
-module "localfile" {
+module "third_file" {
   source  = "./local"
 }
