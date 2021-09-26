@@ -1,0 +1,3 @@
+module "localfile" {
+  source  = "./local"
+}
