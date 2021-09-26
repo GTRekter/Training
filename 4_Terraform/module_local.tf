@@ -1,9 +1,9 @@
 module "first_file" {
-  source  = "./local_file"
+  source  = "./local"
 }
 module "second_file" {
-  source  = "./local_image"
+  source  = "./local"
 }
 module "third_file" {
-  source  = "./local_file"
+  source  = "./local"
 }
