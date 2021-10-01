@@ -2,17 +2,17 @@ variable "content" {
 }
 variable "pnfn" {
     type = number
-    default = 0
+    # default = 0
     description = "File's number used to define the filename"
 }
 variable "psfn" {
     type = string
-    default = "file"
+    # default = "file"
     description = "Partial filename"
 }
 variable "psfnSensitive" {
     type = string
-    default = "number"
+    # default = "number"
     description = "Partial filename but sensitive"
     sensitive = true
 }
