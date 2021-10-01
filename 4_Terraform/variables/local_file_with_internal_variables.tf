@@ -1,5 +1,5 @@
 variable "partialstringfilename" {
-    type = number
+    type = string
     default = "file"
 }
 variable "partialnumberfilename" {
