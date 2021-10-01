@@ -1,15 +1,12 @@
 variable "filename" {
     type = number
 }
-variable "fileextension" {
-    type = string
-}
-variable "filepath" {
+variable "extension" {
     type = string
 }
 variable "content" {
 }
 resource "local_file" "message" {
-    filename = var.filepath + var.filename + var.fileextension
+    filename = "/mnt/c/Users/ivanporta/Desktop/${var.filename}.${var.extension}"
     content = var.content
 }
