@@ -1,11 +1,11 @@
 variable "filename" {
-    type: number
+    type = number
 }
 variable "fileextension" {
-    type: string
+    type = string
 }
 variable "filepath" {
-    type: string
+    type = string
 }
 variable "content" {
 }
