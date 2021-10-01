@@ -1,10 +1,17 @@
-variable "psfn" {
-    type = string
-    default = "file"
+variable "content" {
 }
 variable "pnfn" {
     type = number
-    description = "File's number"
+    description = "File's number used to define the filename"
+}
+variable "psfn" {
+    type = string
+    default = "Partial filename"
+}
+variable "psfnSensitive" {
+    type = string
+    default = "file"
+    description = "Partial filename but sensitive"
     sensitive = true
 }
 variable "extension" {
@@ -15,9 +22,7 @@ variable "extension" {
         error_message = "Extension not supported! Change it to txt or jpg."
     }
 }
-variable "content" {
-}
 resource "local_file" "message" {
-    filename = "/mnt/c/Users/ivanporta/Desktop/${var.pnfn}-${var.psfn}.${var.extension}"
+    filename = "/mnt/c/Users/ivanporta/Desktop/${var.pnfn}-${var.psfn}-${var.psfnSensitive}.${var.extension}"
     content = var.content
 }
