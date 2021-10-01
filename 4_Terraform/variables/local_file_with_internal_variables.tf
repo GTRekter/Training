@@ -10,7 +10,7 @@ variable "pnfn" {
 variable "extension" {
     type = string
     description = "File's extension. Value accepted: txt, jpg"
-    validation = validation {
+    validation {
         condition = anytrue([var.extension == "txt", var.extension == "jpg"])
         error_message = "Extension not supported! Change it to txt or jpg."
     }
