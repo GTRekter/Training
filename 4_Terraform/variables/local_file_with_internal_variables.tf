@@ -1,8 +1,8 @@
-variable "partialstringfilename" {
+variable "psfn" {
     type = string
     default = "file"
 }
-variable "partialnumberfilename" {
+variable "pnfn" {
     type = number
     description = "File's number"
     sensitive = true
@@ -18,6 +18,6 @@ variable "extension" {
 variable "content" {
 }
 resource "local_file" "message" {
-    filename = "/mnt/c/Users/ivanporta/Desktop/${var.partialstringfilename}-${var.partialnumberfilename}.${var.extension}"
+    filename = "/mnt/c/Users/ivanporta/Desktop/${var.pnfn}-${var.psfn}.${var.extension}"
     content = var.content
 }
