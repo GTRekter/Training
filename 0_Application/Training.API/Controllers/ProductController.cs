@@ -21,6 +21,13 @@ namespace Training.API.Controllers
         {
             ProductManager.AddProduct(_context, product);
         }
+        
+        [HttpPost]
+        [Route("AddTestProduct")]
+        public void AddTestProduct(Product product)
+        {
+            // Todo..
+        }
 
         [HttpPost]
         [Route("DeleteProductById")]
