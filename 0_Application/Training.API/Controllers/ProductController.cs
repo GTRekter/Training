@@ -27,6 +27,7 @@ namespace Training.API.Controllers
         public void AddTestProduct(Product product)
         {
             // Todo..
+            // Todo2..
         }
 
         [HttpPost]
@@ -34,6 +35,7 @@ namespace Training.API.Controllers
         public void AddTest2Product(Product product)
         {
             // Todo..
+            // Todo3..
         }
 
         [HttpPost]
