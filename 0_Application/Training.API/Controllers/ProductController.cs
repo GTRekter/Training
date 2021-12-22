@@ -23,6 +23,13 @@ namespace Training.API.Controllers
         }
 
         [HttpPost]
+        [Route("AddTest2Product")]
+        public void AddTest2Product(Product product)
+        {
+            // Todo..
+        }
+
+        [HttpPost]
         [Route("DeleteProductById")]
         public void DeleteProductById(int id)
         {
