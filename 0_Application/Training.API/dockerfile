@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /output
-COPY /output .
+COPY . .
 EXPOSE 80
 ENTRYPOINT ["dotnet", "Training.API.dll"]
