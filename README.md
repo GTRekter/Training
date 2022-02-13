@@ -1,8 +1,10 @@
 # Training
-Project used to help other people understanding GitHub and it's features.
+Project used to help other people understanding Azure DevOps and GitHub.
 
- ![Build Status](https://gtrekter.visualstudio.com/Training/_apis/build/status/GTRekter.Training?branchName=refs%2Fpull%2F43%2Fmerge)
- 
+ ![Build](https://github.com/GTRekter/Training/actions/workflows/analysis.yml/badge.svg)
+![issues](https://img.shields.io/github/issues/GTRekter/Training)
+![license](https://img.shields.io/github/license/GTRekter/Training)
+
 ## Contributing
 Please feel free to contribute by adding new templates to this project:
 - Fork it
@@ -12,3 +14,4 @@ Please feel free to contribute by adding new templates to this project:
 - Create a new Pull Request
 
 ## Code of Conduct
+Not yet available
