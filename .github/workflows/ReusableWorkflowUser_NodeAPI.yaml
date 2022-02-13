@@ -19,8 +19,10 @@ jobs:
         npm test
       env:
         CI: true
-  docker:
+  deploy:
     uses: GTRekter/Template/.github/workflows/ReusableWorkflow_Azure.yml@main
+    environment:
+      name: 'Production'
     with:
       image_name: nodeapi
       tag: $GITHUB_RUN_NUMBER

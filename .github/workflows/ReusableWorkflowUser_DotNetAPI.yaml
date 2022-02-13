@@ -18,8 +18,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  docker:
+  deploy:
     uses: GTRekter/Template/.github/workflows/ReusableWorkflow_Azure.yml@main
+    environment:
+      name: 'Production'
     with:
       image_name: nodeapi
       tag: $GITHUB_RUN_NUMBER
