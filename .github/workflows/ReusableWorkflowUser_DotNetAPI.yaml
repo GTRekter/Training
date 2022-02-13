@@ -1,0 +1,32 @@
+# This is a basic workflow to showcase the use of Reusable Workflows
+name: Dotnet API
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+  docker:
+    uses: GTRekter/Template/.github/workflows/ReusableWorkflow_Azure.yml@main
+    with:
+      image_name: nodeapi
+      tag: $GITHUB_RUN_NUMBER
+    secrets:
+      azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+      azure_resource_group: ${{ secrets.AZURE_RESOURCE_GRUP }}
+      azure_webapp: ${{ secrets.AZURE_WEBAPP }}
+      registry: ${{ secrets.AZURE_REGISTRY }}
+      registry_username: ${{ secrets.REGISTRY_USERNAME }}
+      registry_password: ${{ secrets.REGISTRY_PASSWORD }}

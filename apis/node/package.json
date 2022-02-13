@@ -1,0 +1,17 @@
+{
+  "name": "nodeapi",
+  "version": "1.0.0",
+  "description": "This is a node api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sample"
+  ],
+  "author": "Ivan Porta",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}

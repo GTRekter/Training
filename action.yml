@@ -1,0 +1,20 @@
+name: 'Base Action'
+description: 'Greet someone'
+inputs:
+  what-i-would-like-to-have-for-lunch:
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo `Gnam Gnam...I love ${{ inputs.what-i-would-like-to-have-for-lunch }}.`
+      shell: bash
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      shell: bash
+

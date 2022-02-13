@@ -1,0 +1,15 @@
+name: CompositeAction
+on: 
+  workflow_dispatch:
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - uses: actions/checkout@v2
+      - id: foo
+        uses: GTRekter/Template@v4
+        with:
+          what-i-would-like-to-have-for-lunch: 'Pizza'
+      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+        shell: bash

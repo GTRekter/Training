@@ -1,0 +1,20 @@
+name: ReusableWorkflow
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+    secrets:
+      secretMessage:
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest   
+    steps:
+    - run: echo "Hello world, my name is  ${{inputs.message}}"    
+          
+  do-something-else:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "psss, I have a secret to tell you....${{secrets.secretMessage}}"

@@ -1,0 +1,28 @@
+name: Data between jobs
+on:
+  workflow_dispatch:
+jobs:
+  job_1:
+    name: Create a file
+    runs-on: ubuntu-latest
+    steps:
+      - shell: bash
+        run: |
+          echo "Hello world" > amazingfile.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifact
+          path: amazingfile.txt
+  job_2:
+    name: read file
+    needs: job_1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: artifact
+      - shell: bash
+        run: |
+          cat artifact/amazingfile.txt

@@ -1,0 +1,16 @@
+name: Reusable Workflow user
+on:
+  workflow_dispatch:
+jobs:
+  do-it:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
+  magic:
+    uses: GTRekter/Template/.github/workflows/ReusableWorkflow.yml@main
+    with:
+      message: pizza
+    secrets:
+      secretMessage: ${{secrets.MESSAGE}}
