@@ -1,9 +1,11 @@
 # Training
 Project used to help other people understanding Azure DevOps and GitHub.
 
- ![Build](https://github.com/GTRekter/Training/actions/workflows/analysis.yml/badge.svg)
-![issues](https://img.shields.io/github/issues/GTRekter/Training)
-![license](https://img.shields.io/github/license/GTRekter/Training)
+![GitHub issues](https://img.shields.io/github/issues/GTRekter/Training)
+![GitHub forks](https://img.shields.io/github/forks/GTRekter/Training)
+![GitHub stars](https://img.shields.io/github/stars/GTRekter/Training)
+![GitHub license](https://img.shields.io/github/license/GTRekter/Training)
+![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FGTRekter%2FTraining)
 
 ## Contributing
 Please feel free to contribute by adding new templates to this project:
