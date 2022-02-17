@@ -47,6 +47,13 @@ resource "azurerm_resource_group" "resource_group" {
   location = var.region  
   tags     = local.common_tags
 }   
+resource "azurerm_container_registry" "acr" {
+  name                = "cr-${var.name}-${var.environment}-001" 
+  location            = azurerm_resource_group.resource_group.location
+  resource_group_name = azurerm_resource_group.resource_group.name 
+  sku                 = "Standard"
+  admin_enabled       = false
+}
 resource "azurerm_application_insights" "appinsights" {
   name                = "ai-${var.name}-${var.environment}-001" 
   location            = azurerm_resource_group.resource_group.location
@@ -76,12 +83,17 @@ resource "azurerm_app_service" "app_service" {
   }
   tags = local.common_tags
 } 
-resource "azurerm_container_registry" "acr" {
-  name                = "cr-${var.name}-${var.environment}-001" 
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name 
-  sku                 = "Standard"
-  admin_enabled       = false
+resource "azurerm_app_service_slot" "app_service_slot" {
+  name                    = "staging"
+  app_service_name        = azurerm_app_service.app_service.name
+  location                = azurerm_resource_group.resource_group.location
+  resource_group_name     = azurerm_resource_group.resource_group.name 
+  app_service_plan_id     = azurerm_app_service_plan.app_service_plan.id
+  https_only              = true
+  client_affinity_enabled = true
+  site_config {
+    always_on         = "true"
+  }
 }
 resource "azurerm_virtual_network" "virtual_network" {
   name                = "vnet-${var.name}-${var.environment}"
