@@ -19,9 +19,9 @@ variable "region" {
 }
 locals {
   common_tags = {
-    "ProjectName"  = "SST"
-    "ActivityType" = "Umbrella"
-    "Client"       = "Telecom"
+    "ProjectName"  = "ACS"
+    "ActivityType" = "Demo"
+    "Client"       = "Microsoft"
   }
 }
 terraform {    
