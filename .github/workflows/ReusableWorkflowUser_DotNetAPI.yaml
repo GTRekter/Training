@@ -23,7 +23,7 @@ jobs:
     environment:
       name: 'Production'
     with:
-      image_name: nodeapi
+      image_name: dotnetapi
       tag: $GITHUB_RUN_NUMBER
     secrets:
       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
