@@ -17,6 +17,11 @@ variable "region" {
   default     = "West Europe"
   description = "The Azure Region where the Resource Group should exist."
 }
+variable "appservice_names" {
+  type        = set(string)
+  default     = ["dotnet", "node", "go"]
+  description = "Azure App Services' names"
+}
 variable "vm_username" {
   type        = string
   description = "Azure Virtual Machine username"
@@ -72,7 +77,8 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   tags = local.common_tags
 }  
 resource "azurerm_app_service" "app_service" {  
-  name                = "was-${var.name}-${var.environment}-001"  
+  for_each            = toset(var.appservice_names)
+  name                = "was-${var.name}-${each.value}-001"  
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name  
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id  
@@ -84,6 +90,7 @@ resource "azurerm_app_service" "app_service" {
   tags = local.common_tags
 } 
 resource "azurerm_app_service_slot" "app_service_slot" {
+  for_each                = toset(var.appservice_names)
   name                    = "staging"
   app_service_name        = azurerm_app_service.app_service.name
   location                = azurerm_resource_group.resource_group.location
@@ -106,12 +113,6 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = azurerm_resource_group.resource_group.name  
   virtual_network_name = azurerm_virtual_network.training.name
   address_prefixes     = ["10.0.2.0/24"]
-}
-resource "azurerm_public_ip" "public_ip" {
-  name                         = "pip-${var.name}-${var.environment}"
-  location                     = azurerm_resource_group.training.location
-  resource_group_name          = azurerm_resource_group.training.name
-  allocation_method            = "Dynamic"
 }
 resource "azurerm_network_interface" "network_interface" {
   name                = "ni-${var.name}-${var.environment}"
@@ -146,12 +147,4 @@ resource "azurerm_windows_virtual_machine" "virtual_machine" {
     sku       = "20h2-pro-g2"
     version   = "latest"
   }
-}
-data "azurerm_public_ip" "public_ip" {
-  name                = azurerm_public_ip.public_ip.name
-  resource_group_name = azurerm_resource_group.resource_group.name 
-}
-output "training_vm_ip" {
-  value     = data.azurerm_public_ip.public_ip.ip_address
-  sensitive = false
 }
