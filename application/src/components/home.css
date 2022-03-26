@@ -1,0 +1,29 @@
+@keyframes floating {
+    0% 
+    { 
+        transform: translate(0,  0px); 
+    }
+    50%  
+    { 
+        transform: translate(-15px, 15px); 
+    }
+    100%   
+    { 
+        transform: translate(0px, 0px); 
+    }   
+}
+.octocat-container {
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+}
+.octocat-container img {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    width: 200px;
+}
+.bg-gloss-gray-900 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(27,31,36,var(--tw-bg-opacity));
+}
