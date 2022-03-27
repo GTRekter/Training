@@ -15,9 +15,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore apis/dotnet/web/*.csproj
     - name: .NET Build Web
-      run: dotnet build - configuration Release - no-restore apis/dotnet/web/*.csproj
+      run: dotnet build -configuration Release -no-restore apis/dotnet/web/*.csproj
     - name: .NET Test
-      run: dotnet test - no-restore - verbosity normal apis/dotnet/tests/DotNetAPITests /p:CollectCoverage=true /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
+      run: dotnet test -no-restore -verbosity normal apis/dotnet/tests/DotNetAPITests /p:CollectCoverage=true /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
     - uses: actions/github-script@0.9.0
       if: failure()
       with:
