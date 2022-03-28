@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image to Azure WebApp
+name: Build and deploy Docker image to Azure WebApp
 on:
   workflow_call:
     inputs:

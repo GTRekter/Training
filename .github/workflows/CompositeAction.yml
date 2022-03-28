@@ -1,4 +1,4 @@
-name: CompositeAction
+name: Composite action
 on: 
   workflow_dispatch:
 jobs:
