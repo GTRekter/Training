@@ -4,9 +4,8 @@ on:
    branches: [ main ]
  pull_request:
    branches: [ main ]
- workflow_dispatch:
 jobs:
-  build:
+  build_status_check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
