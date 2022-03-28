@@ -1,4 +1,4 @@
-name: Build and deploy APIs
+name: Build and deploy APIs with load test
 on:
   workflow_dispatch:
 env:
