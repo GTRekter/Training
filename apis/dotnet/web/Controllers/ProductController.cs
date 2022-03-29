@@ -25,7 +25,7 @@ public class ProductController : ControllerBase
     [Route("DeleteProductById")]
     public void DeleteProductById(int id)
     {
-        // Add a bug
+        // Temporary comment the following line 
         //ProductManager.DeleteProductById(_context, id);
     }
 
