@@ -18,6 +18,8 @@ public class ProductController : ControllerBase
     [Route("AddProduct")]
     public void AddProduct(Product product)
     {
+        #Introuce a bug
+        #ProductManager.AddProduct(_context, product);   
         ProductManager.AddProduct(_context, product);
     }
 
