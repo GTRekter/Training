@@ -25,7 +25,8 @@ public class ProductController : ControllerBase
     [Route("DeleteProductById")]
     public void DeleteProductById(int id)
     {
-        ProductManager.RemoveProductById(_context, id);
+        // Add a bug
+        // ProductManager.DeleteProductById(_context, id);
     }
 
     [HttpGet]

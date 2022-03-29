@@ -1,6 +1,12 @@
+// using Xunit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using DotNetAPI.Controllers;
+using DotNetAPI.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 
-namespace tests;
+namespace DotNetAPITests;
 
 [TestClass]
 public class UnitTest
@@ -57,7 +63,7 @@ public class UnitTest
         var controller = new ProductController(_dbContext);
 
         List<Product> testProducts = GetTestProducts();
-        controller.RemoveProduct(4);
+        controller.DeleteProductById(4);
         List<Product> result = controller.GetAllProducts() as List<Product>;
         Assert.AreNotEqual(testProducts.Count, result.Count);
     }

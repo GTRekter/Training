@@ -18,7 +18,7 @@ public static class ProductManager
     {
         return context.Products.ToList();
     }
-    public static void RemoveProductById(ApplicationDbContext context, int id)
+    public static void DeleteProductById(ApplicationDbContext context, int id)
     {
         var productToRemove = context.Products.FirstOrDefault((p) => p.Id == id);
         if(productToRemove != null)
