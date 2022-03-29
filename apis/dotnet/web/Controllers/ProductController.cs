@@ -18,9 +18,9 @@ public class ProductController : ControllerBase
     [Route("AddProduct")]
     public void AddProduct(Product product)
     {
-        #Introuce a bug
-        #ProductManager.AddProduct(_context, product);   
-        ProductManager.AddProduct(_context, product);
+        // Introduce a bug
+        ProductManager.AddProduct(_context, product);   
+        ProductManager.AddProduct(_context, null);
     }
 
     [HttpPost]
