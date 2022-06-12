@@ -2,7 +2,7 @@ name: CodeQL static test
 on:
   workflow_call:
     inputs:
-      language: 
+      languageJson: 
         description: 'Programming language selection [go, javascript, csharp, python, cpp, java]'
         required: true
         type: string
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: {{ input.language }}
+        language: ${{fromJson(input.languageJson.).language}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

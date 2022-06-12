@@ -5,4 +5,4 @@ jobs:
   test:
     uses: GTRekter/Training/.github/workflows/ReusableWorkflow_CodeQL.yml@main
     with:
-      language: ['csharp','javascript']
+      languageJson: '[{"language": ["csharp", "javascript"]}'
