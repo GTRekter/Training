@@ -1,4 +1,4 @@
-name: DotNet API Status check
+name: Sample
 on:
  push:
    branches: [ main ]
