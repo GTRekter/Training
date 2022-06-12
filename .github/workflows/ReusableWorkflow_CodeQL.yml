@@ -1,0 +1,35 @@
+name: CodeQL static test
+on:
+  workflow_call:
+    inputs:
+      language: 
+        description: 'Programming language selection [go, javascript, csharp, python, cpp, java]'
+        required: true
+        type: string
+jobs:
+  CodeQL-Build:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: {{ input.language }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: {{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml 
+      - name: Autobuild
+        if: matrix.language == 'cpp' || matrix.language == 'csharp' 
+        uses: github/codeql-action/autobuild@v2
+      - name: Build Java
+        if: matrix.language == 'java'
+        run: |
+          make bootstrap
+          make release
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

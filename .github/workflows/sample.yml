@@ -1,0 +1,11 @@
+name: DotNet API Status check
+on:
+ push:
+   branches: [ main ]
+ pull_request:
+   branches: [ main ]
+jobs:
+  test:
+    uses: GTRekter/Training/.github/workflows/ReusableWorkflow_CodeQL.yml@main
+    with:
+      message: ['csharp','javascript']
