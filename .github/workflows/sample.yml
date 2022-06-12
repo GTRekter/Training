@@ -1,11 +1,8 @@
 name: Sample
 on:
- push:
-   branches: [ main ]
- pull_request:
-   branches: [ main ]
+ workflow_dispatch:
 jobs:
   test:
     uses: GTRekter/Training/.github/workflows/ReusableWorkflow_CodeQL.yml@main
     with:
-      message: ['csharp','javascript']
+      language: ['csharp','javascript']
