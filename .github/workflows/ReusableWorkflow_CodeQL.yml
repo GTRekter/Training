@@ -7,6 +7,10 @@ on:
         required: true
         type: string
 jobs:
+  # Setup:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     security-events: write
   CodeQL-Build:
     runs-on: ubuntu-latest
     permissions:
@@ -18,9 +22,12 @@ jobs:
     steps:
       - id: set_var
         run: |
-          echo "::set-output name=packageJson::$SURGE_LOGIN"
-        env:
-          SURGE_LOGIN: ${{ inputs.languageJson }}
+          echo "::set-output name=packageJson::${{ inputs.languageJson }}"
+      # - id: set_var
+      #   run: |
+      #     echo "::set-output name=packageJson::$SURGE_LOGIN"
+      #   env:
+      #     SURGE_LOGIN: ${{ inputs.languageJson }}
       - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
       - name: Check
