@@ -20,7 +20,7 @@ jobs:
       - name: Check
         run: | 
           echo "${{fromJson(steps.setVariables.outputs.languageJson)}}"
-  codeQL-build:
+  codeql:
     runs-on: ubuntu-latest
     needs: Setup
     permissions:
@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Check
         run: | 
-          echo "${{fromJson(steps.setVariables.outputs.languageJson)}}" 
+          echo "${{fromJson(needs.setup.outputs.languageJson)}}" 
       # - name: Initialize CodeQL
       #   uses: github/codeql-action/init@v2
       #   with:
