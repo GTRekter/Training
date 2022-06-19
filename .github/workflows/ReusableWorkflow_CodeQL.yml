@@ -16,11 +16,16 @@ jobs:
     #   matrix:
     #     language: ${{fromJson(${{ inputs.languageJson }}) }}
     steps:
+      - id: set_var
+        run: |
+          echo "::set-output name=packageJson::inputs.languageJson"
+      - run: |
+          echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
       - name: Check
         run: | 
-          echo ${{fromJson($SURGE_LOGIN)}}
-        env:
-          SURGE_LOGIN: ${{ inputs.languageJson }}
+          echo "${{fromJson(steps.set_var.outputs.packageJson)}}"
+        # env:
+        #   SURGE_LOGIN: ${{ inputs.languageJson }}
           # SURGE_LOGIN: fromJson(${{ inputs.languageJson }})
           # SURGE_LOGIN: ${{fromJson(inputs.languageJson)}}
           # SURGE_LOGIN: ${{fromJson(${{ inputs.languageJson }}) }}
