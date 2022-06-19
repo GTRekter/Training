@@ -14,7 +14,9 @@ jobs:
     steps:
       - id: setVariables
         run: |
-          echo "::set-output name=matrix::'${{ inputs.languageJson }}'"
+          echo "::set-output name=matrix::$input"
+        env:
+          input: ${{ inputs.languageJson }}
   codeql:
     runs-on: ubuntu-latest
     needs: Setup
