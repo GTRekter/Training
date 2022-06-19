@@ -22,7 +22,7 @@ jobs:
     steps:
       - id: set_var
         run: |
-          echo "::set-output name=packageJson::${{ inputs.languageJson }}"
+          echo "::set-output name=packageJson::'${{ inputs.languageJson }}'"
       # - id: set_var
       #   run: |
       #     echo "::set-output name=packageJson::$SURGE_LOGIN"
