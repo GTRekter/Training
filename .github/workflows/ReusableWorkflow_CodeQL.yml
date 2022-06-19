@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: Check
         run: | 
-          echo $SURGE_LOGIN
+          echo ${{fromJson($SURGE_LOGIN)}}
         env:
-          SURGE_LOGIN: inputs.languageJson
+          SURGE_LOGIN: ${{ inputs.languageJson }}
           # SURGE_LOGIN: fromJson(${{ inputs.languageJson }})
           # SURGE_LOGIN: ${{fromJson(inputs.languageJson)}}
           # SURGE_LOGIN: ${{fromJson(${{ inputs.languageJson }}) }}
