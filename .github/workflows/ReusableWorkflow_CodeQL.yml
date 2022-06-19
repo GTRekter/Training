@@ -15,38 +15,30 @@ jobs:
       - id: setVariables
         run: |
           echo "::set-output name=matrix::'${{ inputs.languageJson }}'"
-      - run: |
-          echo "${{fromJson(steps.setVariables.outputs.matrix).version}}"
-      - name: Check
-        run: | 
-          echo "${{fromJson(steps.setVariables.outputs.matrix)}}"
   codeql:
     runs-on: ubuntu-latest
     needs: Setup
     permissions:
       security-events: write
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     language: ${{fromJson(needs.setup.outputs.languageJson)}}
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{fromJson(needs.setup.outputs.matrix)}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Check
-        run: | 
-          echo "${{fromJson(needs.setup.outputs.matrix)}}" 
-      # - name: Initialize CodeQL
-      #   uses: github/codeql-action/init@v2
-      #   with:
-      #     languages: ${{ matrix.language }}
-      #     config-file: ./.github/codeql/codeql-config.yml 
-      # - name: Autobuild
-      #   if: matrix.language == 'cpp' || matrix.language == 'csharp' 
-      #   uses: github/codeql-action/autobuild@v2
-      # - name: Build Java
-      #   if: matrix.language == 'java'
-      #   run: |
-      #     make bootstrap
-      #     make release
-      # - name: Perform CodeQL Analysis
-      #   uses: github/codeql-action/analyze@v2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml 
+      - name: Autobuild
+        if: matrix.language == 'cpp' || matrix.language == 'csharp' 
+        uses: github/codeql-action/autobuild@v2
+      - name: Build Java
+        if: matrix.language == 'java'
+        run: |
+          make bootstrap
+          make release
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
