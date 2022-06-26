@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"third_module","Source":"./local-image","Dir":"local-image"},{"Key":"","Source":"","Dir":"."},{"Key":"first_module","Source":"./local-file","Dir":"local-file"},{"Key":"second_module","Source":"./local-file","Dir":"local-file"}]}

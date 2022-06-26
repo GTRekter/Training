@@ -1,0 +1,8 @@
+name: CodeQL
+on:
+ workflow_dispatch:
+jobs:
+  test:
+    uses: GTRekter/Training/.github/workflows/ReusableWorkflow_CodeQL.yml@main
+    with:
+      languageJson: '["csharp", "javascript"]'
