@@ -5,7 +5,7 @@ on:
  pull_request:
    branches: [ main ]
 jobs:
-  CodeQL-Build:
+  codeql_status_check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
