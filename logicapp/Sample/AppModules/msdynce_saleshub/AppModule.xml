@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>msdynce_saleshub</UniqueName>
+  <IntroducedVersion>9.1.0.0</IntroducedVersion>
+  <WebResourceId>7257d4d7-4981-e611-80d3-00155d42a122</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="60" id="{45f88f83-0e67-443b-bd05-81d49719f6b1}" />
+    <AppModuleComponent type="60" id="{2701de60-8f2a-48a4-8262-4a35ca7441fa}" />
+    <AppModuleComponent type="60" id="{d1f511a8-1ead-e211-bb72-00155da9a201}" />
+    <AppModuleComponent type="60" id="{25b754f5-7563-df11-ae90-00155d2e3002}" />
+    <AppModuleComponent type="1" schemaName="msdyn_playbookinstance" />
+    <AppModuleComponent type="1" schemaName="msdyn_playbookcategory" />
+    <AppModuleComponent type="1" schemaName="msdyn_playbooktemplate" />
+    <AppModuleComponent type="1" schemaName="msdyn_callablecontext" />
+    <AppModuleComponent type="1" schemaName="msdyn_playbookactivityattribute" />
+    <AppModuleComponent type="1" schemaName="msdyn_playbookactivity" />
+    <AppModuleComponent type="62" schemaName="SalesHubSitemap" />
+    <AppModuleComponent type="29" id="{919e14d1-6489-4852-abd0-a63a6ecaac5d}" />
+    <AppModuleComponent type="29" id="{3e8ebee6-a2bc-4451-9c5f-b146b085413a}" />
+    <AppModuleComponent type="29" id="{0ffbcde4-61c1-4355-aa89-aa1d7b2b8792}" />
+    <AppModuleComponent type="1" schemaName="msdyn_forecastinstance" />
+    <AppModuleComponent type="1" schemaName="msdyn_forecastdefinition" />
+    <AppModuleComponent type="1" schemaName="msdyn_forecastrecurrence" />
+    <AppModuleComponent type="1" schemaName="account" />
+    <AppModuleComponent type="1" schemaName="activitypointer" />
+    <AppModuleComponent type="1" schemaName="appointment" />
+    <AppModuleComponent type="1" schemaName="campaign" />
+    <AppModuleComponent type="1" schemaName="bulkoperation" />
+    <AppModuleComponent type="1" schemaName="incident" />
+    <AppModuleComponent type="1" schemaName="incidentresolution" />
+    <AppModuleComponent type="1" schemaName="category" />
+    <AppModuleComponent type="1" schemaName="competitor" />
+    <AppModuleComponent type="1" schemaName="connection" />
+    <AppModuleComponent type="1" schemaName="connectionrole" />
+    <AppModuleComponent type="1" schemaName="contact" />
+    <AppModuleComponent type="1" schemaName="transactioncurrency" />
+    <AppModuleComponent type="1" schemaName="email" />
+    <AppModuleComponent type="1" schemaName="entitlement" />
+    <AppModuleComponent type="1" schemaName="goal" />
+    <AppModuleComponent type="1" schemaName="invoice" />
+    <AppModuleComponent type="1" schemaName="invoicedetail" />
+    <AppModuleComponent type="1" schemaName="knowledgearticle" />
+    <AppModuleComponent type="1" schemaName="lead" />
+    <AppModuleComponent type="1" schemaName="leadtoopportunitysalesprocess" />
+    <AppModuleComponent type="1" schemaName="opportunity" />
+    <AppModuleComponent type="1" schemaName="opportunityclose" />
+    <AppModuleComponent type="1" schemaName="opportunityproduct" />
+    <AppModuleComponent type="1" schemaName="opportunitysalesprocess" />
+    <AppModuleComponent type="1" schemaName="salesorder" />
+    <AppModuleComponent type="1" schemaName="phonecall" />
+    <AppModuleComponent type="1" schemaName="phonetocaseprocess" />
+    <AppModuleComponent type="1" schemaName="productpricelevel" />
+    <AppModuleComponent type="1" schemaName="product" />
+    <AppModuleComponent type="1" schemaName="productsubstitute" />
+    <AppModuleComponent type="1" schemaName="dynamicpropertyoptionsetitem" />
+    <AppModuleComponent type="1" schemaName="queueitem" />
+    <AppModuleComponent type="1" schemaName="quote" />
+    <AppModuleComponent type="1" schemaName="quotedetail" />
+    <AppModuleComponent type="1" schemaName="salesorderdetail" />
+    <AppModuleComponent type="1" schemaName="socialprofile" />
+    <AppModuleComponent type="1" schemaName="task" />
+    <AppModuleComponent type="1" schemaName="team" />
+    <AppModuleComponent type="1" schemaName="territory" />
+    <AppModuleComponent type="1" schemaName="uom" />
+    <AppModuleComponent type="1" schemaName="uomschedule" />
+    <AppModuleComponent type="1" schemaName="systemuser" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{cad52a75-568c-e611-80d4-00155d42a122}" />
+    <Role id="{c0ed2f4f-6f92-4691-92ba-78f2931e8fba}" />
+    <Role id="{a4be89ff-7c35-4d69-9900-999c3f603e6f}" />
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+    <Role id="{29123793-6ae5-4955-9f1a-f10ceb9705f1}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Sales Hub" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Modernize the sales experience with this mobile relationship management app" languagecode="1033" />
+  </Descriptions>
+</AppModule>

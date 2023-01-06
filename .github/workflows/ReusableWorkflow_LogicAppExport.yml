@@ -1,0 +1,48 @@
+name: Export Logic App
+on:
+  workflow_dispatch:
+    inputs:
+      solution_name:
+        description: 'Name of the Power Platform solution'
+        required: true
+        default: Training
+jobs:
+  export:
+    runs-on: windows-latest
+    environment: 
+        # This should be the Development environment but for this demo I have only the Trial
+        name: 'Build'
+    steps:
+      - uses: actions/checkout@v3
+      - name: who-am-i action
+        uses: microsoft/powerplatform-actions/who-am-i@0.4.0
+        with:
+            environment-url: ${{ secrets.ENVIRONMENT_URL }}
+            app-id: ${{ secrets.POWERPLATFORM_APPID }}
+            client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ secrets.TENANT_ID }}
+      - name: export-solution action
+        uses: microsoft/powerplatform-actions/export-solution@0.4.0
+        with:
+            managed: false
+            environment-url: ${{ secrets.ENVIRONMENT_URL }}
+            app-id: ${{ secrets.POWERPLATFORM_APPID }}
+            client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+            tenant-id: ${{ secrets.TENANT_ID }}
+            solution-name: ${{ github.event.inputs.solution_name }}
+            solution-output-file: bin/${{ github.event.inputs.solution_name }}.zip
+      - name: unpack-solution action
+        uses: microsoft/powerplatform-actions/unpack-solution@0.4.0
+        with:
+          solution-file: bin/${{ github.event.inputs.solution_name }}.zip
+          solution-folder: out/${{ github.event.inputs.solution_name }}
+          solution-type: 'Unmanaged'
+          overwrite-files: true
+      - name: branch-solution, prepare it for a PullRequest
+        uses: microsoft/powerplatform-actions/branch-solution@0.4.0
+        with:
+          solution-folder: out/${{ github.event.inputs.solution_name }}
+          solution-target-folder: sln/${{ github.event.inputs.solution_name }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-empty-commit: true
+          branch-name: ${{ github.event.inputs.solution_name }}-${{ github.run_id }}

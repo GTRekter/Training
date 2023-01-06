@@ -1,0 +1,32 @@
+name: Status Check
+on:
+ pull_request:
+   branches: [ main ]
+jobs:
+  status-check:
+    runs-on: windows-latest
+    environment: 
+        name: 'Build'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check connectivity
+        uses: microsoft/powerplatform-actions/who-am-i@v0.6.3
+        with:
+          environment-url: ${{ secrets.ENVIRONMENT_URL }}
+          app-id: ${{ secrets.POWERPLATFORM_APPID }}
+          client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+      - name: Pack solution
+        uses: microsoft/powerplatform-actions/pack-solution@v0.6.3
+        with:
+          solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
+          solution-folder: sln/${{ secrets.SOLUTION_NAME }}
+          solution-type: 'Unmanaged'
+      - name: Check solution
+        uses: microsoft/powerplatform-actions/check-solution@v0.6.3
+        with:
+          environment-url: ${{ secrets.ENVIRONMENT_URL }}
+          app-id: ${{ secrets.POWERPLATFORM_APPID }}
+          client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          path: out/${{ secrets.SOLUTION_NAME }}.zip

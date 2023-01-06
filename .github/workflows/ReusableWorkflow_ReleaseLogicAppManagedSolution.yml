@@ -1,0 +1,65 @@
+name: ReleaseManagedSolution
+on:
+ push:
+   branches: [ main ]
+jobs:
+  convert-to-managed:
+    runs-on: windows-latest
+    environment: 
+      # Should be Production 
+      name: 'Build'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Pack solution
+      uses: microsoft/powerplatform-actions/pack-solution@v0.6.3
+      with:
+        solution-folder: sln/${{ secrets.SOLUTION_NAME }}
+        solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
+        solution-type: Unmanaged
+    - name: Import solution as unmanaged to build env
+      uses: microsoft/powerplatform-actions/import-solution@v0.6.3
+      with:
+        environment-url: ${{ secrets.ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APPID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        solution-file: out/${{ secrets.SOLUTION_NAME }}.zip
+        force-overwrite: true
+        publish-changes: true
+    - name: Export solution as managed
+      uses: microsoft/powerplatform-actions/export-solution@v0.6.3
+      with:
+        environment-url: ${{ secrets.ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APPID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        solution-name: ${{ secrets.SOLUTION_NAME }}
+        managed: true
+        solution-output-file: out/release/${{ secrets.SOLUTION_NAME }}.zip
+    - name: Upload the ready to ship solution to GH artifact store
+      uses: actions/upload-artifact@v2
+      with:
+        name: managedSolutions
+        path: out/release/${{ secrets.SOLUTION_NAME }}.zip
+  release:
+    needs: [ convert-to-managed ]
+    runs-on: windows-latest
+    environment: 
+      name: 'Development'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Fetch the ready to ship solution from GH artifact store
+      uses: actions/download-artifact@v2
+      with:
+        name: managedSolutions
+        path: out/release/
+    - name: Import solution to prod env
+      uses: microsoft/powerplatform-actions/import-solution@v0.6.3
+      with:
+        environment-url: ${{ secrets.ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APPID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENTSECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        solution-file: out/release/${{ secrets.SOLUTION_NAME }}.zip
+        force-overwrite: true
+        publish-changes: true

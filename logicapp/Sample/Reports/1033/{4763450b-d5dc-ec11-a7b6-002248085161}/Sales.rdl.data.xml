@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report>
+  <name>Sales</name>
+  <defaultfilter>
+    <ReportFilter>
+      <ReportEntity paramname="CRM_FilteredBookingStatus" donotconvert="1">
+        <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+          <entity name="bookingstatus">
+            <all-attributes />
+            <filter type="and">
+              <condition attribute="modifiedon" operator="last-x-days" value="30" />
+            </filter>
+          </entity>
+        </fetch>
+      </ReportEntity>
+    </ReportFilter>
+  </defaultfilter>
+  <iscustomreport>1</iscustomreport>
+  <filename>Sales.rdl</filename>
+  <languagecode>1033</languagecode>
+  <reportid>{4763450b-d5dc-ec11-a7b6-002248085161}</reportid>
+  <reporttypecode>1</reporttypecode>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <createdinmajorversion>9</createdinmajorversion>
+  <iscustomizable>1</iscustomizable>
+  <ExportedFileName>/Reports/Salesrdl4763450b-d5dc-ec11-a7b6-002248085161.wdl</ExportedFileName>
+  <ReportCategories />
+  <ReportVisibilities>
+    <ReportVisbility>2</ReportVisbility>
+    <ReportVisbility>3</ReportVisbility>
+    <ReportVisbility>1</ReportVisbility>
+  </ReportVisibilities>
+  <ReportEntities>
+    <ReportEntity>bookingstatus</ReportEntity>
+  </ReportEntities>
+</Report>
